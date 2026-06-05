@@ -21,7 +21,23 @@ export const navLinks = [
   { label: "Contact", to: "/contact" },
 ];
 
-export const serviceAreas = ["Vancouver", "Burnaby", "Richmond"];
+export const serviceAreas = [
+  {
+    city: "Vancouver",
+    description:
+      "Custom home builds, renovations, and kitchen remodels across Vancouver neighbourhoods.",
+  },
+  {
+    city: "Burnaby",
+    description:
+      "Ground-up construction and remodeling for homeowners throughout Burnaby.",
+  },
+  {
+    city: "Richmond",
+    description:
+      "Design-build and renovation services for Richmond and surrounding communities.",
+  },
+];
 
 export const heroImages = [
   "https://vithudevelopmentsltd.com/wp-content/uploads/sites/189/2021/10/slider_4.jpg",

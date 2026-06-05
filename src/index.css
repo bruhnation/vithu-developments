@@ -19,3 +19,9 @@ html {
 body {
   @apply bg-stone font-sans text-navy-deep antialiased;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

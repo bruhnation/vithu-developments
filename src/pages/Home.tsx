@@ -1,15 +1,23 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, Award, Calendar, MapPin, MessageCircle } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Award, Calendar, MessageCircle } from "lucide-react";
 import {
   brand,
   heroImages,
   homeIntro,
-  serviceAreas,
-  services,
-  whyChoose,
 } from "../data/site";
-import { Button, SectionHeading } from "../components/ui";
+import { ServiceAreasSection } from "../components/ServiceAreasSection";
+import { ServicesCarousel } from "../components/ServicesCarousel";
+import { WhyChooseSection } from "../components/WhyChooseSection";
+import { Button } from "../components/ui";
+import {
+  convergeContainer,
+  convergeLeft,
+  convergeRight,
+  easeOut,
+  popIn,
+  viewport,
+} from "../lib/motion";
 
 const trustBadges = [
   { icon: Calendar, label: "Available by appointment" },
@@ -17,8 +25,27 @@ const trustBadges = [
   { icon: Award, label: "Licensed & certified" },
 ];
 
+const heroPanel = {
+  hidden: { opacity: 0, x: -40 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.75, ease: easeOut, staggerChildren: 0.09, delayChildren: 0.2 },
+  },
+};
+
+const heroItem = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: easeOut },
+  },
+};
+
 export function Home() {
   const [slide, setSlide] = useState(0);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const id = setInterval(
@@ -27,6 +54,10 @@ export function Home() {
     );
     return () => clearInterval(id);
   }, []);
+
+  const motionProps = reduceMotion
+    ? {}
+    : { initial: "hidden" as const, whileInView: "visible" as const, viewport };
 
   return (
     <>
@@ -46,26 +77,32 @@ export function Home() {
         <div className="relative flex min-h-screen items-center pt-[88px] lg:pt-[96px]">
           <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
             <motion.div
-              initial={{ opacity: 0, x: -28 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.65, ease: "easeOut" }}
+              variants={reduceMotion ? undefined : heroPanel}
+              initial={reduceMotion ? false : "hidden"}
+              animate={reduceMotion ? undefined : "visible"}
               className="max-w-lg border border-white/60 bg-white/90 p-8 shadow-[0_8px_40px_rgba(15,28,46,0.12)] backdrop-blur-md sm:max-w-xl sm:p-10 lg:p-12"
             >
-              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent">
+              <motion.p variants={heroItem} className="text-[11px] font-bold uppercase tracking-[0.2em] text-accent">
                 Vancouver · Burnaby · Richmond
-              </p>
-              <h1 className="mt-4 font-sans text-3xl font-bold uppercase leading-[1.08] tracking-tight text-accent sm:text-4xl lg:text-[2.65rem]">
+              </motion.p>
+              <motion.h1
+                variants={heroItem}
+                className="mt-4 font-sans text-3xl font-bold uppercase leading-[1.08] tracking-tight text-accent sm:text-4xl lg:text-[2.65rem]"
+              >
                 Vancouver, Burnaby &amp; Richmond&apos;s
-                <span className="mt-1 block text-navy-deep">
-                  Best Home Builder
-                </span>
-              </h1>
-              <p className="mt-5 text-base leading-relaxed text-navy-deep/90 sm:text-lg">
+                <span className="mt-1 block text-navy-deep">Best Home Builder</span>
+              </motion.h1>
+              <motion.p
+                variants={heroItem}
+                className="mt-5 text-base leading-relaxed text-navy-deep/90 sm:text-lg"
+              >
                 {brand.tagline}
-              </p>
-              <p className="mt-2 text-sm text-slate">{brand.location}</p>
+              </motion.p>
+              <motion.p variants={heroItem} className="mt-2 text-sm text-slate">
+                {brand.location}
+              </motion.p>
 
-              <div className="mt-8 flex flex-wrap gap-3">
+              <motion.div variants={heroItem} className="mt-8 flex flex-wrap gap-3">
                 <Button
                   to="/contact"
                   className="!px-8 !py-3.5 !text-xs !font-bold !uppercase !tracking-widest bg-navy hover:!bg-navy-deep"
@@ -79,9 +116,12 @@ export function Home() {
                 >
                   Explore Services
                 </Button>
-              </div>
+              </motion.div>
 
-              <ul className="mt-8 flex flex-col gap-3 border-t border-stone-dark pt-8 sm:flex-row sm:flex-wrap sm:gap-x-6">
+              <motion.ul
+                variants={heroItem}
+                className="mt-8 flex flex-col gap-3 border-t border-stone-dark pt-8 sm:flex-row sm:flex-wrap sm:gap-x-6"
+              >
                 {trustBadges.map(({ icon: Icon, label }) => (
                   <li
                     key={label}
@@ -91,32 +131,46 @@ export function Home() {
                     {label}
                   </li>
                 ))}
-              </ul>
+              </motion.ul>
             </motion.div>
           </div>
         </div>
       </section>
 
-      <section className="px-6 py-24">
-        <div className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-2 lg:items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <SectionHeading
-              eyebrow="About your project"
-              title="Build the home you couldn't find"
-              description={homeIntro}
-            />
-            <Button to="/about" variant="ghost" className="mt-8 gap-2">
-              Learn about us <ArrowRight className="h-4 w-4" />
-            </Button>
+      <ServicesCarousel />
+
+      <WhyChooseSection />
+
+      {/* About — columns slide in from opposite sides and meet */}
+      <section className="px-6 py-24 overflow-hidden">
+        <motion.div
+          className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-2 lg:items-center"
+          variants={reduceMotion ? undefined : convergeContainer}
+          {...motionProps}
+        >
+          <motion.div variants={reduceMotion ? undefined : convergeLeft}>
+            <div className="max-w-xl border-l-4 border-accent pl-6 sm:pl-8">
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-accent">
+                About your project
+              </p>
+              <h2 className="mt-3 font-sans text-2xl font-bold uppercase leading-[1.15] tracking-tight text-accent sm:text-3xl lg:text-4xl">
+                Build the home
+                <span className="block text-navy-deep">you couldn&apos;t find</span>
+              </h2>
+              <p className="mt-5 text-base leading-relaxed text-slate sm:text-lg">
+                {homeIntro}
+              </p>
+              <Button
+                to="/about"
+                className="mt-8 gap-2 bg-navy hover:!bg-navy-deep"
+              >
+                Learn about us <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
           </motion.div>
+
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            variants={reduceMotion ? undefined : convergeRight}
             className="relative"
           >
             <img
@@ -124,116 +178,46 @@ export function Home() {
               alt="Home design and floor plan"
               className="aspect-[4/3] w-full object-cover shadow-xl"
             />
-            <div className="absolute -bottom-6 -left-6 hidden border border-accent bg-white px-6 py-4 shadow-lg md:block">
-              <p className="font-serif text-3xl text-navy-deep">15+</p>
-              <p className="text-xs uppercase tracking-widest text-slate">
+            <motion.div
+              variants={reduceMotion ? undefined : popIn}
+              initial={reduceMotion ? false : "hidden"}
+              whileInView={reduceMotion ? undefined : "visible"}
+              viewport={viewport}
+              transition={{ delay: 0.45 }}
+              className="absolute -bottom-6 -left-6 hidden border border-accent bg-white px-6 py-4 shadow-lg md:block"
+            >
+              <p className="font-sans text-3xl font-bold text-accent">15+</p>
+              <p className="text-xs font-semibold uppercase tracking-widest text-navy-deep">
                 Years serving the Lower Mainland
               </p>
-            </div>
+            </motion.div>
           </motion.div>
-        </div>
+        </motion.div>
       </section>
 
-      <section className="border-y border-stone-dark bg-white px-6 py-24">
-        <div className="mx-auto max-w-6xl">
-          <SectionHeading
-            eyebrow="What we do"
-            title="Services built around your vision"
-            description="From custom homes to kitchen remodels — one team, clear communication."
-          />
-          <div className="mt-14 grid gap-8 sm:grid-cols-2">
-            {services.map((service, i) => (
-              <motion.article
-                key={service.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="group border border-stone-dark bg-stone transition-shadow hover:shadow-lg"
-              >
-                <div className="overflow-hidden">
-                  <img
-                    src={service.image}
-                    alt=""
-                    className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-8">
-                  <h3 className="font-serif text-2xl text-navy-deep">
-                    {service.title}
-                  </h3>
-                  <p className="mt-3 text-slate leading-relaxed">
-                    {service.description}
-                  </p>
-                  <Button to="/services" variant="ghost" className="mt-6 !px-0 !py-0 border-0">
-                    Explore <ArrowRight className="ml-1 h-4 w-4" />
-                  </Button>
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ServiceAreasSection />
 
-      <section className="px-6 py-24">
-        <div className="mx-auto max-w-6xl">
-          <SectionHeading
-            eyebrow="Why Vithu"
-            title="Benefits of a professional contractor"
-            description="A general contractor keeps your build organized — from land survey through cabinetry and final walkthrough."
-          />
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {whyChoose.map((item, i) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="border border-stone-dark bg-white p-8"
-              >
-                <h3 className="font-semibold text-navy-deep">{item.title}</h3>
-                <p className="mt-3 text-slate leading-relaxed">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-stone-dark px-6 py-16">
-        <div className="mx-auto max-w-6xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate">
-            Service areas
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            {serviceAreas.map((city) => (
-              <span
-                key={city}
-                className="inline-flex items-center gap-2 border border-navy/10 bg-white px-5 py-2.5 text-sm font-medium text-navy"
-              >
-                <MapPin className="h-4 w-4 text-accent" />
-                {city}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-navy px-6 py-20">
-        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-8 md:flex-row md:items-center">
-          <div>
-            <h2 className="font-serif text-3xl text-white md:text-4xl">
+      <section className="bg-navy px-6 py-20 overflow-hidden">
+        <motion.div
+          className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-8 md:flex-row md:items-center"
+          variants={reduceMotion ? undefined : convergeContainer}
+          {...motionProps}
+        >
+          <motion.div variants={reduceMotion ? undefined : convergeLeft}>
+            <h2 className="font-sans text-3xl font-bold text-white md:text-4xl">
               Ready to start your dream home?
             </h2>
             <p className="mt-3 max-w-lg text-white/75">
               Call today for a free consultation. Our builders are ready to discuss
               your timeline, budget, and next steps.
             </p>
-          </div>
-          <Button to="/contact" className="shrink-0 bg-accent hover:!bg-accent-hover">
-            Get in touch
-          </Button>
-        </div>
+          </motion.div>
+          <motion.div variants={reduceMotion ? undefined : convergeRight}>
+            <Button to="/contact" className="shrink-0 bg-accent hover:!bg-accent-hover">
+              Get in touch
+            </Button>
+          </motion.div>
+        </motion.div>
       </section>
     </>
   );

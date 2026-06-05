@@ -70,7 +70,7 @@ export function SectionHeading({
         </p>
       )}
       <h2
-        className={`font-serif text-4xl leading-tight md:text-5xl ${
+        className={`font-sans text-3xl font-bold leading-[1.15] tracking-tight md:text-4xl ${
           light ? "text-white" : "text-navy-deep"
         }`}
       >
