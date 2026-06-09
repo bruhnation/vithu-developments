@@ -1,9 +1,11 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
-import { services } from "../data/site";
-import { fadeUp, viewport } from "../lib/motion";
+import Link from "next/link";
+import { services } from "@/data/site";
+import { fadeUp, viewport } from "@/lib/motion";
 
 const offeringsIntro =
   "Serving Vancouver, Burnaby, Richmond, and surrounding areas — our in-house team brings local expertise, quality craftsmanship, and clear communication to every build and remodel.";
@@ -136,7 +138,7 @@ export function ServicesCarousel() {
 
           <div className="mt-6 text-center sm:text-left">
             <Link
-              to="/services"
+              href="/services"
               className="text-sm font-semibold uppercase tracking-wider text-navy-deep hover:text-accent"
             >
               View all services →

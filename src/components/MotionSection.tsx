@@ -1,6 +1,8 @@
+"use client";
+
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
-import { fadeUp, viewport } from "../lib/motion";
+import { fadeUp, viewport } from "@/lib/motion";
 
 export function MotionSection({
   children,

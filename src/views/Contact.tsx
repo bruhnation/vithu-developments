@@ -1,7 +1,9 @@
+"use client";
+
 import { useState, type FormEvent } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { brand } from "../data/site";
-import { Button, PageHero } from "../components/ui";
+import { brand } from "@/data/site";
+import { Button, PageHero } from "@/components/ui";
 
 export function Contact() {
   const [submitted, setSubmitted] = useState(false);

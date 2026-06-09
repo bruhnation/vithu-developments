@@ -4,10 +4,9 @@ A static, client-ready redesign of [vithudevelopmentsltd.com](https://vithudevel
 
 ## Stack
 
-- React + Vite + TypeScript
+- Next.js 16 (App Router) + TypeScript
 - Tailwind CSS v4
 - Framer Motion (light scroll animations)
-- React Router
 
 ## Run locally
 
@@ -16,16 +15,16 @@ npm install
 npm run dev
 ```
 
-Open the URL shown in the terminal (usually `http://localhost:5173`).
+Open [http://localhost:3000](http://localhost:3000).
 
 ## Build for preview / deploy
 
 ```bash
 npm run build
-npm run preview
+npm run start
 ```
 
-Deploy the `dist` folder to Vercel, Netlify, or any static host.
+Deploy to Vercel or any Node.js host that supports Next.js.
 
 ## Pages
 
@@ -42,4 +41,4 @@ Deploy the `dist` folder to Vercel, Netlify, or any static host.
 
 Edit copy, images, and nav in `src/data/site.ts`.
 
-To wire the contact form for production, replace the submit handler in `src/pages/Contact.tsx` with Formspree, Netlify Forms, or similar.
+To wire the contact form for production, replace the submit handler in `src/views/Contact.tsx` with Formspree, Netlify Forms, or similar.

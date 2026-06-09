@@ -1,15 +1,13 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Award, Calendar, MessageCircle } from "lucide-react";
-import {
-  brand,
-  heroImages,
-  homeIntro,
-} from "../data/site";
-import { ServiceAreasSection } from "../components/ServiceAreasSection";
-import { ServicesCarousel } from "../components/ServicesCarousel";
-import { WhyChooseSection } from "../components/WhyChooseSection";
-import { Button } from "../components/ui";
+import { brand, heroImages, homeIntro } from "@/data/site";
+import { ServiceAreasSection } from "@/components/ServiceAreasSection";
+import { ServicesCarousel } from "@/components/ServicesCarousel";
+import { WhyChooseSection } from "@/components/WhyChooseSection";
+import { Button } from "@/components/ui";
 import {
   convergeContainer,
   convergeLeft,
@@ -17,7 +15,7 @@ import {
   easeOut,
   popIn,
   viewport,
-} from "../lib/motion";
+} from "@/lib/motion";
 
 const trustBadges = [
   { icon: Calendar, label: "Available by appointment" },

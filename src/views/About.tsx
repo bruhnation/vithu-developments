@@ -1,7 +1,9 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
-import { aboutCopy, heroImages } from "../data/site";
-import { Button, PageHero } from "../components/ui";
+import { aboutCopy, heroImages } from "@/data/site";
+import { Button, PageHero } from "@/components/ui";
 
 const credentials = [
   "Flexible ground-up or renovation projects",

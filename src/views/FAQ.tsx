@@ -1,7 +1,9 @@
+"use client";
+
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { faqs } from "../data/site";
-import { Button, PageHero } from "../components/ui";
+import { faqs } from "@/data/site";
+import { Button, PageHero } from "@/components/ui";
 
 export function FAQ() {
   const [open, setOpen] = useState<number | null>(0);

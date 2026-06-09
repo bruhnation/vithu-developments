@@ -1,7 +1,9 @@
+"use client";
+
 import { motion, useReducedMotion } from "framer-motion";
 import { MapPin } from "lucide-react";
-import { heroImages, serviceAreas } from "../data/site";
-import { fadeUp, staggerContainer, viewport } from "../lib/motion";
+import { heroImages, serviceAreas } from "@/data/site";
+import { fadeUp, staggerContainer, viewport } from "@/lib/motion";
 
 export function ServiceAreasSection() {
   const reduceMotion = useReducedMotion();

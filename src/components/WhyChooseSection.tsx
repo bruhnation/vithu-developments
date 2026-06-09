@@ -1,8 +1,10 @@
+"use client";
+
 import { motion, useReducedMotion } from "framer-motion";
 import { Award, CalendarCheck, MessageCircle } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { heroImages } from "../data/site";
-import { fadeUp, staggerContainer, viewport } from "../lib/motion";
+import { heroImages } from "@/data/site";
+import { fadeUp, staggerContainer, viewport } from "@/lib/motion";
 
 const pillars: {
   icon: LucideIcon;

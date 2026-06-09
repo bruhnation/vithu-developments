@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 export function Button({
@@ -35,7 +35,7 @@ export function Button({
   }
   if (to) {
     return (
-      <Link to={to} className={classes}>
+      <Link href={to} className={classes}>
         {children}
       </Link>
     );

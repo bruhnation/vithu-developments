@@ -1,7 +1,9 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
-import { services } from "../data/site";
-import { Button, PageHero } from "../components/ui";
+import { services } from "@/data/site";
+import { Button, PageHero } from "@/components/ui";
 
 export function Services() {
   return (

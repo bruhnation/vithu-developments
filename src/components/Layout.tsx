@@ -1,14 +1,17 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, Phone, X } from "lucide-react";
-import { brand, logoUrl, navLinks } from "../data/site";
+import { brand, logoUrl, navLinks } from "@/data/site";
 import { Button } from "./ui";
 
-export function Layout() {
+export function Layout({ children }: { children: React.ReactNode }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const location = useLocation();
-  const isHome = location.pathname === "/";
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const heroHeader = isHome && !scrolled && !menuOpen;
 
   useEffect(() => {
@@ -20,7 +23,7 @@ export function Layout() {
 
   useEffect(() => {
     setMenuOpen(false);
-  }, [location.pathname]);
+  }, [pathname]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -32,7 +35,7 @@ export function Layout() {
         }`}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3 lg:py-4">
-          <Link to="/" className="flex items-center gap-3 shrink-0">
+          <Link href="/" className="flex items-center gap-3 shrink-0">
             <img
               src={logoUrl}
               alt=""
@@ -52,9 +55,9 @@ export function Layout() {
             {navLinks.map((link) => (
               <Link
                 key={link.to}
-                to={link.to}
+                href={link.to}
                 className={`text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors ${
-                  location.pathname === link.to
+                  pathname === link.to
                     ? "text-accent"
                     : "text-navy-deep/80 hover:text-navy-deep"
                 }`}
@@ -96,7 +99,7 @@ export function Layout() {
               {navLinks.map((link) => (
                 <li key={link.to}>
                   <Link
-                    to={link.to}
+                    href={link.to}
                     className="font-serif text-3xl text-navy-deep hover:text-accent"
                   >
                     {link.label}
@@ -115,9 +118,7 @@ export function Layout() {
         )}
       </header>
 
-      <main className="flex-1">
-        <Outlet />
-      </main>
+      <main className="flex-1">{children}</main>
 
       <footer className="bg-navy-deep text-white">
         <div className="mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-2 lg:grid-cols-4">
@@ -134,7 +135,7 @@ export function Layout() {
             <ul className="space-y-2 text-sm text-white/75">
               {navLinks.map((link) => (
                 <li key={link.to}>
-                  <Link to={link.to} className="hover:text-white">
+                  <Link href={link.to} className="hover:text-white">
                     {link.label}
                   </Link>
                 </li>

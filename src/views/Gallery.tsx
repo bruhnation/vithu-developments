@@ -1,6 +1,8 @@
+"use client";
+
 import { motion } from "framer-motion";
-import { galleryImages } from "../data/site";
-import { PageHero } from "../components/ui";
+import { galleryImages } from "@/data/site";
+import { PageHero } from "@/components/ui";
 
 export function Gallery() {
   return (
