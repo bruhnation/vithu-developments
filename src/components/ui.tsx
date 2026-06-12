@@ -28,20 +28,20 @@ export function Button({
 
   if (href) {
     return (
-      <a href={href} className={classes}>
+      <a href={href} className={classes} suppressHydrationWarning>
         {children}
       </a>
     );
   }
   if (to) {
     return (
-      <Link href={to} className={classes}>
+      <Link href={to} className={classes} suppressHydrationWarning>
         {children}
       </Link>
     );
   }
   return (
-    <button type={type} className={classes}>
+    <button type={type} className={classes} suppressHydrationWarning>
       {children}
     </button>
   );

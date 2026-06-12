@@ -1,10 +1,9 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import { Award, CalendarCheck, MessageCircle } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { heroImages } from "@/data/site";
-import { fadeUp, staggerContainer, viewport } from "@/lib/motion";
+import { Reveal, useParallax } from "@/components/scroll";
 
 const pillars: {
   icon: LucideIcon;
@@ -13,76 +12,73 @@ const pillars: {
 }[] = [
   {
     icon: Award,
-    title: "Licensed & Certified.",
+    title: "Licensed & Certified",
     description:
-      "Experienced contractors who manage framers, trades, and inspections with care — keeping your build on track.",
+      "Experienced contractors coordinating the trades, inspections, and details that keep a build moving properly.",
   },
   {
     icon: MessageCircle,
-    title: "Free Consultations.",
+    title: "Straightforward Communication",
     description:
-      "Discuss your vision, budget, and timeline before you commit. Clear answers, no pressure.",
+      "Clear conversations around scope, budget, and timeline so you understand what is happening before work begins.",
   },
   {
     icon: CalendarCheck,
-    title: "Available By Appointment.",
+    title: "Organized Project Flow",
     description:
-      "Focused attention on your project. Schedule a time that works and talk directly with our team.",
+      "Focused scheduling, reliable follow-through, and a practical process from the first meeting to final walkthrough.",
   },
 ];
 
 export function WhyChooseSection() {
-  const reduceMotion = useReducedMotion();
+  const bgRef = useParallax<HTMLImageElement>(8);
 
   return (
-    <section className="relative overflow-hidden py-14 md:py-16 lg:py-20">
+    <section className="relative overflow-hidden py-16 md:py-20 lg:py-24">
       <img
+        ref={bgRef}
         src={heroImages[1]}
         alt=""
-        className="absolute inset-0 h-full w-full object-cover grayscale"
+        className="absolute inset-x-0 -top-[12.5%] h-[125%] w-full object-cover grayscale"
       />
       <div className="absolute inset-0 bg-navy-deep/90" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(201,162,39,0.22),transparent_32%)]" />
 
-      <motion.div
-        className="relative mx-auto max-w-7xl px-6 lg:px-10"
-        initial={reduceMotion ? false : "hidden"}
-        whileInView={reduceMotion ? undefined : "visible"}
-        viewport={viewport}
-        variants={staggerContainer(0.1, 0.04)}
-      >
-        <motion.h2
-          variants={reduceMotion ? undefined : fadeUp}
-          className="text-center font-sans text-2xl font-black uppercase tracking-tight text-white sm:text-3xl md:text-4xl"
-        >
-          Why Choose Us?
-        </motion.h2>
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
+        <Reveal className="mx-auto max-w-3xl text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-accent">
+            Why Choose Us
+          </p>
+          <h2 className="mt-4 font-sans text-3xl font-black uppercase leading-[1.03] tracking-[-0.045em] text-white sm:text-4xl lg:text-5xl">
+            A clearer way to build and renovate.
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-white/70">
+            Good construction is not only about the finished room. It is about
+            planning well, keeping people aligned, and doing the small things
+            properly along the way.
+          </p>
+        </Reveal>
 
-        <div className="mt-10 grid gap-8 md:mt-12 md:grid-cols-3 md:gap-0">
+        <div className="mt-12 grid gap-5 md:mt-14 md:grid-cols-3">
           {pillars.map((item, i) => (
-            <motion.article
-              key={item.title}
-              variants={reduceMotion ? undefined : fadeUp}
-              whileHover={reduceMotion ? undefined : { y: -6 }}
-              transition={{ type: "spring", stiffness: 420, damping: 28 }}
-              className={`group flex flex-col items-center px-6 py-8 text-center md:px-8 lg:px-10 ${
-                i > 0 ? "md:border-l md:border-white/20" : ""
-              }`}
-            >
-              <item.icon
-                className="mb-5 h-11 w-11 text-accent transition-transform duration-300 group-hover:scale-110 sm:h-12 sm:w-12"
-                strokeWidth={1.5}
-                aria-hidden
-              />
-              <h3 className="font-sans text-base font-black uppercase leading-[1.2] tracking-wide text-accent transition-colors duration-300 group-hover:text-[#e0bc3a] sm:text-lg md:text-xl">
-                {item.title}
-              </h3>
-              <p className="mx-auto mt-3 max-w-xs text-center text-sm leading-[1.65] text-white/75 transition-colors duration-300 group-hover:text-white/90 md:text-[15px]">
-                {item.description}
-              </p>
-            </motion.article>
+            <Reveal key={item.title} delay={i * 120}>
+              <article className="group h-full border border-white/15 bg-white/[0.06] px-6 py-8 text-center shadow-2xl backdrop-blur-sm transition-transform duration-300 hover:-translate-y-1.5 md:px-8 lg:px-10">
+                <item.icon
+                  className="mx-auto mb-6 h-11 w-11 text-accent transition-transform duration-300 group-hover:scale-110 sm:h-12 sm:w-12"
+                  strokeWidth={1.5}
+                  aria-hidden
+                />
+                <h3 className="font-sans text-base font-black uppercase leading-[1.2] tracking-wide text-white transition-colors duration-300 group-hover:text-accent sm:text-lg md:text-xl">
+                  {item.title}
+                </h3>
+                <p className="mx-auto mt-3 max-w-xs text-center text-sm leading-[1.65] text-white/75 transition-colors duration-300 group-hover:text-white/90 md:text-[15px]">
+                  {item.description}
+                </p>
+              </article>
+            </Reveal>
           ))}
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

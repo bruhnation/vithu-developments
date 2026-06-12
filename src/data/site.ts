@@ -39,10 +39,17 @@ export const serviceAreas = [
   },
 ];
 
+export const heroMedia = {
+  video:
+    "https://assets.mixkit.co/videos/3422/3422-720.mp4",
+  poster:
+    "https://images.unsplash.com/photo-1559511260-66a654ae982a?auto=format&fit=crop&w=2400&q=85",
+};
+
 export const heroImages = [
-  "https://vithudevelopmentsltd.com/wp-content/uploads/sites/189/2021/10/slider_4.jpg",
-  "https://vithudevelopmentsltd.com/wp-content/uploads/sites/189/2021/10/slider_5.jpg",
-  "https://vithudevelopmentsltd.com/wp-content/uploads/sites/189/2021/10/slider_6.jpg",
+  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85",
+  "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1800&q=85",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85",
 ];
 
 export const logoUrl =
@@ -52,49 +59,49 @@ export const services = [
   {
     title: "Custom Home Building",
     description:
-      "Ground-up construction tailored to your must-haves, from layout to finish selections.",
+      "Ground-up homes planned around the way you live, with clear budgets, reliable trades, and careful finishing from start to walkthrough.",
     image:
-      "https://vithudevelopmentsltd.com/wp-content/uploads/sites/189/2021/10/slider_5.jpg",
+      "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1400&q=85",
     points: [
-      "Flexible, professional contractors",
-      "Design input at every stage",
-      "Additions and full builds",
+      "Full build coordination",
+      "Layout and finish planning",
+      "Site-to-finish project management",
     ],
   },
   {
     title: "Home Remodeling",
     description:
-      "Transform existing spaces with careful planning, quality trades, and clear communication.",
+      "Thoughtful renovations that improve how your home looks, works, and feels without losing sight of timeline, budget, or daily disruption.",
     image:
-      "https://vithudevelopmentsltd.com/wp-content/uploads/sites/189/2021/10/slider_4.jpg",
+      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=85",
     points: [
-      "Room additions and renovations",
-      "Coordinated project management",
-      "On-time scheduling",
+      "Interior and exterior updates",
+      "Additions and layout changes",
+      "Coordinated trades and schedules",
     ],
   },
   {
     title: "Kitchen Remodeling",
     description:
-      "Functional, beautiful kitchens designed around how you cook, entertain, and live.",
+      "Clean, functional kitchens built around real use: storage, workflow, durable materials, and details that make the space feel finished.",
     image:
-      "https://vithudevelopmentsltd.com/wp-content/uploads/sites/189/2021/10/slider_6.jpg",
+      "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1400&q=85",
     points: [
-      "Cabinetry and layout expertise",
-      "Quality materials and finishes",
-      "Licensed, certified team",
+      "Cabinetry and layout planning",
+      "Countertops, lighting, and finishes",
+      "Practical storage upgrades",
     ],
   },
   {
     title: "Design-Build",
     description:
-      "One team from concept through completion — fewer handoffs, clearer accountability.",
+      "One accountable team guiding the project from early ideas through construction, helping decisions stay organized and buildable.",
     image:
-      "https://vithudevelopmentsltd.com/wp-content/uploads/sites/189/2021/10/slider_4.jpg",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1400&q=85",
     points: [
-      "Unified planning and build",
-      "Transparent timelines",
-      "Move-in ready delivery",
+      "Early scope and budget clarity",
+      "Planning through construction",
+      "Fewer handoffs and surprises",
     ],
   },
 ];
@@ -118,12 +125,12 @@ export const whyChoose = [
 ];
 
 export const galleryImages = [
-  "https://vithudevelopmentsltd.com/wp-content/uploads/sites/189/2021/10/slider_4.jpg",
-  "https://vithudevelopmentsltd.com/wp-content/uploads/sites/189/2021/10/slider_5.jpg",
-  "https://vithudevelopmentsltd.com/wp-content/uploads/sites/189/2021/10/slider_6.jpg",
-  "https://vithudevelopmentsltd.com/wp-content/uploads/sites/189/2021/10/slider_4.jpg",
-  "https://vithudevelopmentsltd.com/wp-content/uploads/sites/189/2021/10/slider_5.jpg",
-  "https://vithudevelopmentsltd.com/wp-content/uploads/sites/189/2021/10/slider_6.jpg",
+  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=85",
+  "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1400&q=85",
+  "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=85",
+  "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1400&q=85",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85",
+  "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1400&q=85",
 ];
 
 export const faqs = [
@@ -153,12 +160,12 @@ export const faqs = [
   },
 ];
 
-export const homeIntro = `Sometimes while house hunting, it is difficult to find a home with everything you are looking for. Many homeowners consider building their own home — and the first step is hiring a quality home building company.
+export const homeIntro = `Vithu Developments LTD helps homeowners plan and build spaces that feel considered from the first conversation to the final walkthrough.
 
-Vithu Developments LTD contractors are flexible and professional, able to start from the ground up or take on additions and renovations. We work with your must-haves list and, with your input, help create your dream home.`;
+Based in Vancouver, we work across custom homes, renovations, additions, and kitchen remodels with a focus on practical planning, dependable trades, and clean finishing. Whether the project starts with a blank lot or an older home that needs a smarter layout, our goal is to make the process clear and the final result feel ready to live in.`;
 
-export const aboutCopy = `Vithu Developments LTD is a Vancouver-based home builder and remodeling contractor serving homeowners across Vancouver, Burnaby, Richmond, and surrounding areas.
+export const aboutCopy = `Vithu Developments LTD is a Vancouver-based home builder and remodeling contractor serving homeowners across Vancouver, Burnaby, Richmond, and nearby communities.
 
-From land survey and exterior work through interior cabinetry and final walkthrough, our team keeps your project organized — managing pricing, hiring, and scheduling so construction stays on track.
+From early planning and pricing through trades, inspections, cabinetry, finishing, and final walkthrough, our team keeps the work organized and the communication straightforward.
 
-Whether you are building custom, renovating, or upgrading a kitchen, we aim for a finished home that is move-in ready with everything in working order.`;
+Whether you are building new, renovating an existing home, or upgrading the rooms you use every day, we focus on work that is realistic, well managed, and built with care.`;

@@ -8,18 +8,8 @@ import { brand, logoUrl, navLinks } from "@/data/site";
 import { Button } from "./ui";
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
-  const isHome = pathname === "/";
-  const heroHeader = isHome && !scrolled && !menuOpen;
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -28,11 +18,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          heroHeader
-            ? "bg-white/95 shadow-sm backdrop-blur-sm"
-            : "border-b border-stone-dark/80 bg-white/98 shadow-md backdrop-blur-md"
-        }`}
+        className="fixed inset-x-0 top-0 z-50 border-b border-stone-dark/80 bg-white/95 shadow-sm backdrop-blur-md"
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3 lg:py-4">
           <Link href="/" className="flex items-center gap-3 shrink-0">
@@ -173,7 +159,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
         <div className="border-t border-white/10 px-6 py-6 text-center text-xs text-white/50">
-          © {new Date().getFullYear()} {brand.name}. All rights reserved.
+          © 2026 {brand.name}. All rights reserved.
         </div>
       </footer>
     </div>
