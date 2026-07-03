@@ -11,7 +11,7 @@ import {
   ClipboardCheck,
   Hammer,
 } from "lucide-react";
-import { brand, heroImages, heroMedia, homeIntro } from "@/data/site";
+import { aboutImage, brand, heroMedia, homeIntro } from "@/data/site";
 import { Button } from "@/components/ui";
 import { useParallax } from "@/components/scroll";
 
@@ -23,17 +23,74 @@ const trustBadges = [
   { icon: Award, label: "Licensed & certified" },
 ];
 
+function useHeroVideoAutoplay(videoRef: React.RefObject<HTMLVideoElement | null>) {
+  const [videoVisible, setVideoVisible] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reducedMotion) return;
+
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+    video.controls = false;
+
+    const markPlaying = () => setVideoVisible(true);
+
+    const tryPlay = async () => {
+      try {
+        await video.play();
+        markPlaying();
+      } catch {
+        // Safari may block until a gesture; unlock on first touch.
+      }
+    };
+
+    const unlockOnTouch = () => {
+      void tryPlay();
+      document.removeEventListener("touchstart", unlockOnTouch);
+    };
+
+    void tryPlay();
+    video.addEventListener("loadeddata", tryPlay);
+    video.addEventListener("canplay", tryPlay);
+    video.addEventListener("playing", markPlaying);
+    document.addEventListener("touchstart", unlockOnTouch, { passive: true });
+
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") void tryPlay();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
+    return () => {
+      video.removeEventListener("loadeddata", tryPlay);
+      video.removeEventListener("canplay", tryPlay);
+      video.removeEventListener("playing", markPlaying);
+      document.removeEventListener("touchstart", unlockOnTouch);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, [videoRef]);
+
+  return videoVisible;
+}
+
 export function HeroScrollExperience() {
   const containerRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
   const aboutImageRef = useParallax<HTMLImageElement>(7);
   const [revealed, setRevealed] = useState(false);
+  const videoVisible = useHeroVideoAutoplay(videoRef);
 
-  // GSAP lives ONLY on the hero: as you scroll the first viewport, the hero
-  // content fades back and shrinks. The white section overtaking it is pure
-  // CSS `sticky` (see markup below) — no pin, so nothing fights the scroll.
   useGSAP(
     () => {
       const hero = heroRef.current;
@@ -62,8 +119,6 @@ export function HeroScrollExperience() {
     { scope: containerRef },
   );
 
-  // Below the hero: plain, dependable IntersectionObserver reveal. No GSAP, so
-  // it never interferes with the card hovers or icon micro-interactions.
   useEffect(() => {
     const about = aboutRef.current;
     if (!about) return;
@@ -100,20 +155,22 @@ export function HeroScrollExperience() {
         className="sticky top-0 z-10 h-svh overflow-hidden bg-navy-deep text-white"
       >
         <video
-          className="absolute inset-0 h-full w-full object-cover"
-          poster={heroMedia.poster}
+          ref={videoRef}
+          className={`hero-bg-video absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+            videoVisible ? "opacity-100" : "opacity-0"
+          }`}
           autoPlay
           muted
           loop
           playsInline
+          preload="auto"
+          disablePictureInPicture
+          disableRemotePlayback
+          controls={false}
+          aria-hidden
         >
           <source src={heroMedia.video} type="video/mp4" />
         </video>
-        <img
-          src={heroMedia.poster}
-          alt=""
-          className="absolute inset-0 -z-10 h-full w-full object-cover"
-        />
         <div className="absolute inset-0 bg-gradient-to-b from-navy-deep/70 via-navy-deep/45 to-navy-deep/85" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_30%,rgba(201,162,39,0.22),transparent_32%)]" />
 
@@ -180,9 +237,10 @@ export function HeroScrollExperience() {
             <div className="relative aspect-[4/5] overflow-hidden shadow-2xl">
               <img
                 ref={aboutImageRef}
-                src={heroImages[0]}
+                src={aboutImage}
                 alt="Modern custom home interior"
                 className="absolute inset-x-0 -top-[12.5%] h-[125%] w-full object-cover"
+                loading="lazy"
               />
             </div>
             <div className="absolute -bottom-5 -right-5 max-w-[220px] border border-stone-dark bg-white p-5 shadow-xl">

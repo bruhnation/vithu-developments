@@ -40,17 +40,16 @@ export const serviceAreas = [
 ];
 
 export const heroMedia = {
-  video:
-    "https://assets.mixkit.co/videos/3422/3422-720.mp4",
-  poster:
-    "https://images.unsplash.com/photo-1559511260-66a654ae982a?auto=format&fit=crop&w=2400&q=85",
+  video: "https://assets.mixkit.co/videos/3422/3422-720.mp4",
 };
 
-export const heroImages = [
-  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85",
-  "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1800&q=85",
-  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85",
-];
+/** Shared still image for about blocks on the home page and /about */
+export const aboutImage =
+  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85";
+
+/** Background for below-the-fold sections (not used in hero) */
+export const sectionBackdrop =
+  "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1800&q=85";
 
 export const logoUrl =
   "https://vithudevelopmentsltd.com/wp-content/themes/hmb3/images/logo.png";

@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { MapPin } from "lucide-react";
-import { heroImages, serviceAreas } from "@/data/site";
+import { sectionBackdrop, serviceAreas } from "@/data/site";
 import { fadeUp, staggerContainer, viewport } from "@/lib/motion";
 
 export function ServiceAreasSection() {
@@ -11,7 +11,7 @@ export function ServiceAreasSection() {
   return (
     <section className="relative overflow-hidden py-14 md:py-16 lg:py-20">
       <img
-        src={heroImages[2]}
+        src={sectionBackdrop}
         alt=""
         className="absolute inset-0 h-full w-full object-cover grayscale"
       />

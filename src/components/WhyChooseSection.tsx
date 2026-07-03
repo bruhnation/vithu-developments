@@ -2,7 +2,7 @@
 
 import { Award, CalendarCheck, MessageCircle } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { heroImages } from "@/data/site";
+import { sectionBackdrop } from "@/data/site";
 import { Reveal, useParallax } from "@/components/scroll";
 
 const pillars: {
@@ -37,9 +37,10 @@ export function WhyChooseSection() {
     <section className="relative overflow-hidden py-16 md:py-20 lg:py-24">
       <img
         ref={bgRef}
-        src={heroImages[1]}
+        src={sectionBackdrop}
         alt=""
         className="absolute inset-x-0 -top-[12.5%] h-[125%] w-full object-cover grayscale"
+        loading="lazy"
       />
       <div className="absolute inset-0 bg-navy-deep/90" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(201,162,39,0.22),transparent_32%)]" />

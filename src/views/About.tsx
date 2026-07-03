@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
-import { aboutCopy, heroImages } from "@/data/site";
+import { aboutCopy, aboutImage } from "@/data/site";
 import { Button, PageHero } from "@/components/ui";
 
 const credentials = [
@@ -25,7 +25,7 @@ export function About() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            src={heroImages[1]}
+            src={aboutImage}
             alt=""
             className="aspect-[4/3] w-full object-cover shadow-lg"
           />
