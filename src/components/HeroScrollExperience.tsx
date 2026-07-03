@@ -152,7 +152,7 @@ export function HeroScrollExperience() {
     <div ref={containerRef} className="relative">
       <section
         ref={heroRef}
-        className="sticky top-0 z-10 h-svh overflow-hidden bg-navy-deep text-white"
+        className="relative top-0 z-10 h-dvh min-h-dvh overflow-hidden bg-navy-deep text-white lg:sticky"
       >
         <video
           ref={videoRef}
@@ -176,7 +176,7 @@ export function HeroScrollExperience() {
 
         <div
           ref={heroContentRef}
-          className="relative mx-auto flex h-full w-full max-w-7xl flex-col justify-center px-6 pb-16 pt-[5.5rem] sm:pb-20 lg:px-10 lg:pb-24 lg:pt-28"
+          className="relative mx-auto flex h-full w-full max-w-7xl flex-col justify-start px-6 pb-10 pt-[calc(5.5rem+env(safe-area-inset-top,0px))] sm:justify-center sm:pb-16 sm:pt-[5.5rem] lg:px-10 lg:pb-24 lg:pt-28"
         >
           <div className="flex max-w-3xl flex-col gap-12 sm:gap-14 lg:max-w-2xl lg:gap-16 xl:max-w-3xl">
             <div className="origin-left space-y-5 sm:space-y-6">
