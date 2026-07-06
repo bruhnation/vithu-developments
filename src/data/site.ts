@@ -41,6 +41,8 @@ export const serviceAreas = [
 
 export const heroMedia = {
   video: "https://assets.mixkit.co/videos/3422/3422-720.mp4",
+  poster:
+    "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1800&q=85",
 };
 
 /** Shared still image for about blocks on the home page and /about */
@@ -102,24 +104,6 @@ export const services = [
       "Planning through construction",
       "Fewer handoffs and surprises",
     ],
-  },
-];
-
-export const whyChoose = [
-  {
-    title: "Licensed & Certified",
-    description:
-      "Experienced contractors who manage framers, trades, and inspections with care.",
-  },
-  {
-    title: "Free Consultations",
-    description:
-      "Discuss your vision, budget, and timeline before you commit to a build path.",
-  },
-  {
-    title: "By Appointment",
-    description:
-      "Focused attention on your project — available when you need expert guidance.",
   },
 ];
 

@@ -16,7 +16,7 @@ export function Contact() {
   return (
     <>
       <PageHero
-        title="Get your free consultation"
+        title="Get Your Free Consultation"
         subtitle="Tell us about your project — we'll follow up to discuss scope, timeline, and next steps."
       />
       <section className="px-6 py-20">
@@ -83,8 +83,8 @@ export function Contact() {
               <div className="py-12 text-center">
                 <p className="font-serif text-2xl text-navy-deep">Thank you!</p>
                 <p className="mt-3 text-slate">
-                  This demo form does not send email. For a live site, connect
-                  Formspree, Netlify Forms, or your preferred handler.
+                  We received your message and will follow up shortly to discuss
+                  your project, timeline, and next steps.
                 </p>
                 <p className="mt-6">
                   Or call us now:{" "}
@@ -166,7 +166,7 @@ export function Contact() {
                   />
                 </label>
                 <Button type="submit" className="w-full sm:w-auto">
-                  Send message
+                  Request a Quote
                 </Button>
               </form>
             )}

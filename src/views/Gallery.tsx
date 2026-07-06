@@ -8,7 +8,7 @@ export function Gallery() {
   return (
     <>
       <PageHero
-        title="Project gallery"
+        title="Project Gallery"
         subtitle="A preview of our work in home building and remodeling across the Lower Mainland."
       />
       <section className="px-6 py-20">
@@ -26,13 +26,14 @@ export function Gallery() {
                 src={src}
                 alt=""
                 className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
               />
             </motion.figure>
           ))}
         </div>
         <p className="mx-auto mt-12 max-w-2xl text-center text-sm text-slate">
-          Gallery uses existing site photography. Replace with your own project
-          photos when ready for launch.
+          A selection of custom builds, renovations, and kitchen projects across
+          the Lower Mainland.
         </p>
       </section>
     </>

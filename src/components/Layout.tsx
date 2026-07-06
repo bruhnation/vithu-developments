@@ -15,20 +15,25 @@ export function Layout({ children }: { children: React.ReactNode }) {
     setMenuOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   return (
     <div className="min-h-screen flex flex-col">
-      <header
-        className="fixed inset-x-0 top-0 z-50 border-b border-stone-dark/80 bg-white/95 shadow-sm backdrop-blur-md"
-      >
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-stone-dark/80 bg-white/95 pt-[env(safe-area-inset-top,0px)] shadow-sm backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3 lg:py-4">
-          <Link href="/" className="flex items-center gap-3 shrink-0">
+          <Link href="/" className="flex shrink-0 items-center gap-3">
             <img
               src={logoUrl}
               alt=""
               className="h-11 w-11 object-contain"
             />
             <div className="hidden sm:block">
-              <p className="text-sm font-bold text-navy-deep leading-tight">
+              <p className="text-sm font-bold leading-tight text-navy-deep">
                 {brand.name}
               </p>
               <p className="text-[10px] font-medium uppercase tracking-wide text-slate">
@@ -37,7 +42,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-7 xl:gap-9 lg:flex">
+          <nav className="hidden items-center gap-7 lg:flex xl:gap-9">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
@@ -63,7 +68,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </a>
             <Button
               to="/contact"
-              className="!py-2.5 !px-5 !text-[11px] !font-bold !uppercase !tracking-wider bg-navy hover:!bg-navy-deep"
+              className="!px-5 !py-2.5 !text-[11px] !font-bold !uppercase !tracking-wider bg-navy hover:!bg-navy-deep"
             >
               Request a Quote
             </Button>
@@ -71,7 +76,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
           <button
             type="button"
-            className="rounded p-2 text-navy-deep lg:hidden"
+            className="flex min-h-11 min-w-11 items-center justify-center rounded text-navy-deep lg:hidden"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             onClick={() => setMenuOpen((o) => !o)}
           >
@@ -81,12 +86,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
         {menuOpen && (
           <nav className="border-t border-stone-dark bg-white px-6 py-8 lg:hidden">
-            <ul className="space-y-4">
+            <ul className="space-y-2">
               {navLinks.map((link) => (
                 <li key={link.to}>
                   <Link
                     href={link.to}
-                    className="font-serif text-3xl text-navy-deep hover:text-accent"
+                    className="flex min-h-11 items-center font-serif text-3xl text-navy-deep hover:text-accent"
                   >
                     {link.label}
                   </Link>
@@ -95,11 +100,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </ul>
             <a
               href={brand.phoneHref}
-              className="mt-8 flex items-center gap-2 text-lg font-semibold text-navy-deep"
+              className="mt-6 flex min-h-11 items-center gap-2 text-lg font-semibold text-navy-deep"
             >
               <Phone className="h-5 w-5" />
               {brand.phone}
             </a>
+            <Button
+              to="/contact"
+              className="mt-4 w-full !py-3 !text-xs !font-bold !uppercase !tracking-widest bg-navy hover:!bg-navy-deep"
+            >
+              Request a Quote
+            </Button>
           </nav>
         )}
       </header>

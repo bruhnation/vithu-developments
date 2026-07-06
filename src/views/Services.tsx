@@ -9,7 +9,7 @@ export function Services() {
   return (
     <>
       <PageHero
-        title="Our services"
+        title="Our Services"
         subtitle="Custom homes, remodeling, kitchens, and design-build — serving Vancouver, Burnaby, and Richmond."
       />
       <div className="divide-y divide-stone-dark">
@@ -32,6 +32,7 @@ export function Services() {
                   src={service.image}
                   alt=""
                   className="aspect-[4/3] w-full object-cover shadow-md"
+                  loading="lazy"
                 />
               </motion.div>
               <motion.div
@@ -39,7 +40,7 @@ export function Services() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
               >
-                <h2 className="font-serif text-3xl text-navy-deep md:text-4xl">
+                <h2 className="font-sans text-2xl font-black uppercase tracking-tight text-navy-deep md:text-3xl">
                   {service.title}
                 </h2>
                 <p className="mt-4 text-slate leading-relaxed">
@@ -57,7 +58,7 @@ export function Services() {
                   ))}
                 </ul>
                 <Button to="/contact" className="mt-8">
-                  Get a Quote
+                  Request a Quote
                 </Button>
               </motion.div>
             </div>

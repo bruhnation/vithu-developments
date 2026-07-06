@@ -10,14 +10,17 @@
   --color-stone-dark: #e8e4de;
   --color-accent: #c9a227;
   --color-accent-hover: #b08f1f;
+  --color-accent-glow: color-mix(in srgb, var(--color-accent) 22%, transparent);
 }
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   @apply bg-stone font-sans text-navy-deep antialiased;
+  overflow-x: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {

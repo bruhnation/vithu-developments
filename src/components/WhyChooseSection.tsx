@@ -43,7 +43,7 @@ export function WhyChooseSection() {
         loading="lazy"
       />
       <div className="absolute inset-0 bg-navy-deep/90" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(201,162,39,0.22),transparent_32%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,var(--color-accent-glow),transparent_32%)]" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <Reveal className="mx-auto max-w-3xl text-center">

@@ -23,6 +23,10 @@ const trustBadges = [
   { icon: Award, label: "Licensed & certified" },
 ];
 
+function getViewportHeight() {
+  return window.visualViewport?.height ?? window.innerHeight;
+}
+
 function useHeroVideoAutoplay(videoRef: React.RefObject<HTMLVideoElement | null>) {
   const [videoVisible, setVideoVisible] = useState(false);
 
@@ -49,7 +53,7 @@ function useHeroVideoAutoplay(videoRef: React.RefObject<HTMLVideoElement | null>
         await video.play();
         markPlaying();
       } catch {
-        // Safari may block until a gesture; unlock on first touch.
+        // Safari may block until a gesture; poster stays visible underneath.
       }
     };
 
@@ -110,7 +114,7 @@ export function HeroScrollExperience() {
         scrollTrigger: {
           trigger: hero,
           start: "top top",
-          end: () => `+=${window.innerHeight}`,
+          end: () => `+=${getViewportHeight()}`,
           scrub: 0.5,
           invalidateOnRefresh: true,
         },
@@ -118,6 +122,18 @@ export function HeroScrollExperience() {
     },
     { scope: containerRef },
   );
+
+  useEffect(() => {
+    const refresh = () => ScrollTrigger.refresh();
+    window.addEventListener("resize", refresh);
+    window.addEventListener("orientationchange", refresh);
+    window.visualViewport?.addEventListener("resize", refresh);
+    return () => {
+      window.removeEventListener("resize", refresh);
+      window.removeEventListener("orientationchange", refresh);
+      window.visualViewport?.removeEventListener("resize", refresh);
+    };
+  }, []);
 
   useEffect(() => {
     const about = aboutRef.current;
@@ -154,16 +170,25 @@ export function HeroScrollExperience() {
         ref={heroRef}
         className="relative top-0 z-10 h-dvh min-h-dvh overflow-hidden bg-navy-deep text-white lg:sticky"
       >
+        <img
+          src={heroMedia.poster}
+          alt=""
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+            videoVisible ? "opacity-0" : "opacity-100"
+          }`}
+          aria-hidden
+        />
         <video
           ref={videoRef}
           className={`hero-bg-video absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
             videoVisible ? "opacity-100" : "opacity-0"
           }`}
+          poster={heroMedia.poster}
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           disablePictureInPicture
           disableRemotePlayback
           controls={false}
@@ -172,38 +197,38 @@ export function HeroScrollExperience() {
           <source src={heroMedia.video} type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-navy-deep/70 via-navy-deep/45 to-navy-deep/85" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_30%,rgba(201,162,39,0.22),transparent_32%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_30%,var(--color-accent-glow),transparent_32%)]" />
 
         <div
           ref={heroContentRef}
-          className="relative mx-auto flex h-full w-full max-w-7xl flex-col justify-start px-6 pb-10 pt-[calc(5.5rem+env(safe-area-inset-top,0px))] sm:justify-center sm:pb-16 sm:pt-[5.5rem] lg:px-10 lg:pb-24 lg:pt-28"
+          className="relative mx-auto flex h-full w-full max-w-7xl flex-col justify-start overflow-y-auto overscroll-contain px-6 pb-[calc(2.5rem+env(safe-area-inset-bottom,0px))] pt-[calc(5.5rem+env(safe-area-inset-top,0px))] sm:justify-center sm:pb-16 sm:pt-[calc(5.5rem+env(safe-area-inset-top,0px))] lg:px-10 lg:pb-24 lg:pt-28"
         >
-          <div className="flex max-w-3xl flex-col gap-12 sm:gap-14 lg:max-w-2xl lg:gap-16 xl:max-w-3xl">
-            <div className="origin-left space-y-5 sm:space-y-6">
+          <div className="flex max-w-3xl flex-col gap-8 sm:gap-14 lg:max-w-2xl lg:gap-16 xl:max-w-3xl">
+            <div className="origin-left space-y-4 sm:space-y-6">
               <p className="text-xs font-bold uppercase tracking-[0.28em] text-accent sm:text-sm">
-                Vancouver - Burnaby - Richmond
+                Vancouver · Burnaby · Richmond
               </p>
-              <h1 className="font-sans text-[2.35rem] font-black uppercase leading-[1.06] tracking-[-0.04em] text-white sm:text-5xl md:text-[3.25rem] lg:text-6xl lg:leading-[1.02]">
+              <h1 className="font-sans text-[2rem] font-black uppercase leading-[1.06] tracking-[-0.04em] text-white max-[380px]:text-[1.75rem] sm:text-5xl md:text-[3.25rem] lg:text-6xl lg:leading-[1.02]">
                 Homes built with care, clarity, and craft.
               </h1>
             </div>
 
-            <div className="space-y-8 border-t border-white/15 pt-10 sm:space-y-9 lg:space-y-10 lg:pt-12">
+            <div className="space-y-6 border-t border-white/15 pt-8 sm:space-y-9 lg:space-y-10 lg:pt-12">
               <p className="max-w-xl text-base leading-[1.75] text-white/85 sm:text-lg">
                 {brand.tagline} From early planning to final walkthrough, we
                 keep the process clear and the work well managed.
               </p>
 
               <div className="flex flex-wrap gap-3 sm:gap-4">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center border border-transparent bg-accent px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-white shadow-[0_0_0_rgba(201,162,39,0)] transition-all duration-300 ease-out will-change-transform hover:-translate-y-0.5 hover:scale-[1.05] hover:shadow-[0_14px_36px_rgba(201,162,39,0.45)]"
+                <Button
+                  to="/contact"
+                  className="!px-8 !py-3.5 !text-xs !font-bold !uppercase !tracking-widest bg-navy hover:!bg-navy-deep"
                 >
                   Request a Quote
-                </Link>
+                </Button>
                 <Link
                   href="/services"
-                  className="inline-flex items-center justify-center border border-white/35 bg-white/5 px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-white backdrop-blur-sm transition-all duration-300 ease-out will-change-transform hover:-translate-y-0.5 hover:scale-[1.04] hover:border-white/65 hover:bg-white/[0.18]"
+                  className="inline-flex items-center justify-center border border-white/35 bg-white/5 px-8 py-3.5 text-xs font-bold uppercase tracking-widest text-white backdrop-blur-sm transition-colors hover:border-white/65 hover:bg-white/[0.18]"
                 >
                   Explore Services
                 </Link>
@@ -233,7 +258,7 @@ export function HeroScrollExperience() {
         className="relative z-30 overflow-hidden bg-white px-6 py-16 shadow-[0_-28px_80px_rgba(15,28,46,0.25)] lg:py-24"
       >
         <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-16">
-          <div className={`relative ${revealClass}`}>
+          <div className={`relative overflow-hidden ${revealClass}`}>
             <div className="relative aspect-[4/5] overflow-hidden shadow-2xl">
               <img
                 ref={aboutImageRef}
@@ -243,7 +268,7 @@ export function HeroScrollExperience() {
                 loading="lazy"
               />
             </div>
-            <div className="absolute -bottom-5 -right-5 max-w-[220px] border border-stone-dark bg-white p-5 shadow-xl">
+            <div className="absolute bottom-4 right-4 max-w-[220px] border border-stone-dark bg-white p-5 shadow-xl sm:-bottom-5 sm:-right-5">
               <p className="font-sans text-3xl font-black text-accent">15+</p>
               <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-navy-deep">
                 Years serving Lower Mainland homeowners
@@ -255,15 +280,15 @@ export function HeroScrollExperience() {
             className={`group max-w-xl ${revealClass}`}
             style={{ transitionDelay: revealed ? "120ms" : "0ms" }}
           >
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-accent transition-all duration-300 ease-out group-hover:tracking-[0.34em]">
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-accent">
               About Vithu Developments
             </p>
-            <h2 className="mt-4 font-sans text-3xl font-black uppercase leading-[1.02] tracking-[-0.045em] text-navy-deep transition-colors duration-300 ease-out group-hover:text-navy sm:text-4xl lg:text-5xl">
+            <h2 className="mt-4 font-sans text-3xl font-black uppercase leading-[1.02] tracking-[-0.045em] text-navy-deep sm:text-4xl lg:text-5xl">
               Building homes that feel considered from day one.
             </h2>
             <span
               aria-hidden
-              className="mt-5 block h-[3px] w-12 origin-left rounded-full bg-accent transition-all duration-500 ease-out group-hover:w-24"
+              className="mt-5 block h-[3px] w-12 rounded-full bg-accent"
             />
             <p className="mt-6 whitespace-pre-line text-base leading-relaxed text-slate sm:text-lg">
               {homeIntro}

@@ -74,6 +74,7 @@ export function ServicesCarousel() {
                         src={service.image}
                         alt=""
                         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/55 via-transparent to-transparent opacity-80" />
                       <span className="absolute bottom-4 left-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-navy-deep backdrop-blur">
@@ -113,12 +114,16 @@ export function ServicesCarousel() {
                   type="button"
                   aria-label={`Go to slide ${i + 1}`}
                   onClick={() => setIndex(i)}
-                  className={`h-2.5 rounded-full transition-all ${
-                    i === index
-                      ? "w-8 bg-navy"
-                      : "w-2.5 bg-stone-dark hover:bg-slate/40"
-                  }`}
-                />
+                  className="flex min-h-11 min-w-11 items-center justify-center"
+                >
+                  <span
+                    className={`block rounded-full transition-all ${
+                      i === index
+                        ? "h-2.5 w-8 bg-navy"
+                        : "h-2.5 w-2.5 bg-stone-dark hover:bg-slate/40"
+                    }`}
+                  />
+                </button>
               ))}
             </div>
 

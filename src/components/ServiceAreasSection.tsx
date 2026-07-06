@@ -14,6 +14,7 @@ export function ServiceAreasSection() {
         src={sectionBackdrop}
         alt=""
         className="absolute inset-0 h-full w-full object-cover grayscale"
+        loading="lazy"
       />
       <div className="absolute inset-0 bg-navy-deep/90" />
 
@@ -25,8 +26,11 @@ export function ServiceAreasSection() {
         variants={staggerContainer(0.1, 0.04)}
       >
         <motion.div variants={reduceMotion ? undefined : fadeUp} className="text-center">
-          <h2 className="font-sans text-2xl font-black uppercase tracking-tight text-white sm:text-3xl md:text-4xl">
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-accent">
             Service Areas
+          </p>
+          <h2 className="font-sans text-2xl font-black uppercase tracking-[-0.045em] text-white sm:text-3xl md:text-4xl">
+            Proudly Serving the Lower Mainland
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/75 sm:text-base">
             Proudly serving homeowners across the Lower Mainland — and surrounding

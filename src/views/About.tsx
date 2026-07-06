@@ -28,6 +28,7 @@ export function About() {
             src={aboutImage}
             alt=""
             className="aspect-[4/3] w-full object-cover shadow-lg"
+            loading="lazy"
           />
           <motion.div
             initial={{ opacity: 0, y: 16 }}

@@ -11,7 +11,7 @@ export function FAQ() {
   return (
     <>
       <PageHero
-        title="Frequently asked questions"
+        title="Frequently Asked Questions"
         subtitle="Common questions about timelines, service areas, and working with our team."
       />
       <section className="px-6 py-20">
@@ -42,7 +42,7 @@ export function FAQ() {
         <div className="mx-auto mt-16 max-w-3xl text-center">
           <p className="text-slate">Still have questions?</p>
           <Button to="/contact" className="mt-6">
-            Contact us
+            Request a Quote
           </Button>
         </div>
       </section>

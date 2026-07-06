@@ -62,15 +62,13 @@ export function SectionHeading({
     <div className="max-w-2xl">
       {eyebrow && (
         <p
-          className={`mb-3 text-xs font-semibold uppercase tracking-[0.2em] ${
-            light ? "text-accent" : "text-slate"
-          }`}
+          className={`mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-accent`}
         >
           {eyebrow}
         </p>
       )}
       <h2
-        className={`font-sans text-3xl font-bold leading-[1.15] tracking-tight md:text-4xl ${
+        className={`font-sans text-3xl font-black uppercase leading-[1.15] tracking-[-0.045em] md:text-4xl ${
           light ? "text-white" : "text-navy-deep"
         }`}
       >
@@ -97,9 +95,9 @@ export function PageHero({
   subtitle?: string;
 }) {
   return (
-    <section className="border-b border-stone-dark bg-white px-6 py-20 md:py-28">
+    <section className="scroll-mt-[calc(5.5rem+env(safe-area-inset-top,0px))] border-b border-stone-dark bg-white px-6 pb-20 pt-[calc(5.5rem+env(safe-area-inset-top,0px))] md:pb-28 md:pt-[calc(7rem+env(safe-area-inset-top,0px))]">
       <div className="mx-auto max-w-6xl">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-accent">
           Vithu Developments LTD
         </p>
         <h1 className="font-serif text-4xl text-navy-deep md:text-6xl">{title}</h1>
