@@ -104,7 +104,8 @@ export function HeroScrollExperience() {
       const reducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       ).matches;
-      if (reducedMotion) return;
+      const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+      if (reducedMotion || !isDesktop) return;
 
       gsap.to(heroContent, {
         opacity: 0.35,
@@ -168,7 +169,7 @@ export function HeroScrollExperience() {
     <div ref={containerRef} className="relative">
       <section
         ref={heroRef}
-        className="relative top-0 z-10 h-dvh min-h-dvh overflow-hidden bg-navy-deep text-white lg:sticky"
+        className="relative top-0 z-10 min-h-dvh bg-navy-deep text-white lg:sticky lg:h-dvh lg:min-h-dvh lg:overflow-hidden"
       >
         <img
           src={heroMedia.poster}
@@ -201,7 +202,7 @@ export function HeroScrollExperience() {
 
         <div
           ref={heroContentRef}
-          className="relative mx-auto flex h-full w-full max-w-7xl flex-col justify-start overflow-y-auto overscroll-contain px-6 pb-[calc(2.5rem+env(safe-area-inset-bottom,0px))] pt-[calc(5.5rem+env(safe-area-inset-top,0px))] sm:justify-center sm:pb-16 sm:pt-[calc(5.5rem+env(safe-area-inset-top,0px))] lg:px-10 lg:pb-24 lg:pt-28"
+          className="relative mx-auto flex w-full max-w-7xl flex-col justify-start px-6 pb-12 pt-[calc(5.5rem+env(safe-area-inset-top,0px))] sm:justify-center sm:pb-16 sm:pt-[calc(5.5rem+env(safe-area-inset-top,0px))] lg:h-full lg:px-10 lg:pb-24 lg:pt-28"
         >
           <div className="flex max-w-3xl flex-col gap-8 sm:gap-14 lg:max-w-2xl lg:gap-16 xl:max-w-3xl">
             <div className="origin-left space-y-4 sm:space-y-6">

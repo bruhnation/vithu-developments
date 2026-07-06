@@ -9,10 +9,20 @@ import { Button } from "./ui";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const isHome = pathname === "/";
+  const heroHeader = isHome && !scrolled && !menuOpen;
 
   useEffect(() => {
     setMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, [pathname]);
 
   useEffect(() => {
@@ -23,8 +33,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
   }, [menuOpen]);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-stone-dark/80 bg-white/95 pt-[env(safe-area-inset-top,0px)] shadow-sm backdrop-blur-md">
+    <div className="flex min-h-screen flex-col">
+      <header
+        className={`fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top,0px)] transition-all duration-300 ${
+          heroHeader
+            ? "border-b border-white/20 bg-navy-deep/92 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-md"
+            : "border-b border-stone-dark/80 bg-white shadow-md backdrop-blur-md"
+        }`}
+      >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3 lg:py-4">
           <Link href="/" className="flex shrink-0 items-center gap-3">
             <img
@@ -32,11 +48,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
               alt=""
               className="h-11 w-11 object-contain"
             />
-            <div className="hidden sm:block">
-              <p className="text-sm font-bold leading-tight text-navy-deep">
-                {brand.name}
+            <div className={heroHeader ? "block sm:block" : "hidden sm:block"}>
+              <p
+                className={`text-sm font-bold leading-tight ${
+                  heroHeader ? "text-white" : "text-navy-deep"
+                }`}
+              >
+                {brand.shortName}
               </p>
-              <p className="text-[10px] font-medium uppercase tracking-wide text-slate">
+              <p
+                className={`text-[10px] font-medium uppercase tracking-wide ${
+                  heroHeader ? "text-white/70" : "text-slate"
+                }`}
+              >
                 Home Builder & Remodeling
               </p>
             </div>
@@ -50,7 +74,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 className={`text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors ${
                   pathname === link.to
                     ? "text-accent"
-                    : "text-navy-deep/80 hover:text-navy-deep"
+                    : heroHeader
+                      ? "text-white/85 hover:text-white"
+                      : "text-navy-deep/80 hover:text-navy-deep"
                 }`}
               >
                 {link.label}
@@ -61,14 +87,22 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="hidden items-center gap-5 md:flex">
             <a
               href={brand.phoneHref}
-              className="flex items-center gap-2 text-sm font-semibold text-navy-deep hover:text-navy"
+              className={`flex items-center gap-2 text-sm font-semibold ${
+                heroHeader
+                  ? "text-white hover:text-white/80"
+                  : "text-navy-deep hover:text-navy"
+              }`}
             >
               <Phone className="h-4 w-4 text-accent" />
               {brand.phone}
             </a>
             <Button
               to="/contact"
-              className="!px-5 !py-2.5 !text-[11px] !font-bold !uppercase !tracking-wider bg-navy hover:!bg-navy-deep"
+              className={`!px-5 !py-2.5 !text-[11px] !font-bold !uppercase !tracking-wider ${
+                heroHeader
+                  ? "bg-accent hover:!bg-accent-hover"
+                  : "bg-navy hover:!bg-navy-deep"
+              }`}
             >
               Request a Quote
             </Button>
@@ -76,7 +110,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
           <button
             type="button"
-            className="flex min-h-11 min-w-11 items-center justify-center rounded text-navy-deep lg:hidden"
+            className={`flex min-h-11 min-w-11 items-center justify-center rounded lg:hidden ${
+              heroHeader ? "text-white" : "text-navy-deep"
+            }`}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             onClick={() => setMenuOpen((o) => !o)}
           >
