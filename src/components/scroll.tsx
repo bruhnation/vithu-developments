@@ -27,6 +27,8 @@ export function useParallax<T extends HTMLElement = HTMLDivElement>(amount = 8) 
     () => {
       const el = ref.current;
       if (!el || prefersReducedMotion()) return;
+      const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+      if (!isDesktop) return;
 
       gsap.fromTo(
         el,

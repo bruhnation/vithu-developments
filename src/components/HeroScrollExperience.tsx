@@ -125,13 +125,21 @@ export function HeroScrollExperience() {
   );
 
   useEffect(() => {
-    const refresh = () => ScrollTrigger.refresh();
-    window.addEventListener("resize", refresh);
+    let timeout: ReturnType<typeof setTimeout>;
+    const refresh = () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => ScrollTrigger.refresh(), 150);
+    };
     window.addEventListener("orientationchange", refresh);
-    window.visualViewport?.addEventListener("resize", refresh);
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    if (desktop.matches) {
+      window.addEventListener("resize", refresh);
+      window.visualViewport?.addEventListener("resize", refresh);
+    }
     return () => {
-      window.removeEventListener("resize", refresh);
+      clearTimeout(timeout);
       window.removeEventListener("orientationchange", refresh);
+      window.removeEventListener("resize", refresh);
       window.visualViewport?.removeEventListener("resize", refresh);
     };
   }, []);
@@ -256,7 +264,7 @@ export function HeroScrollExperience() {
 
       <section
         ref={aboutRef}
-        className="relative z-30 overflow-hidden bg-white px-6 py-16 shadow-[0_-28px_80px_rgba(15,28,46,0.25)] lg:py-24"
+        className="relative overflow-hidden border-t border-stone-dark bg-white px-6 py-16 lg:z-30 lg:border-t-0 lg:py-24 lg:shadow-[0_-28px_80px_rgba(15,28,46,0.25)]"
       >
         <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-16">
           <div className={`relative overflow-hidden ${revealClass}`}>
