@@ -24,19 +24,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-stone-dark bg-white pt-[env(safe-area-inset-top,0px)] shadow-[0_4px_20px_rgba(15,28,46,0.14)]">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-navy-deep pt-[env(safe-area-inset-top,0px)] shadow-[0_8px_32px_rgba(0,0,0,0.35)]">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3 lg:py-4">
           <Link href="/" className="flex shrink-0 items-center gap-3">
-            <img
-              src={logoUrl}
-              alt=""
-              className="h-11 w-11 object-contain"
-            />
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-white/10 ring-1 ring-white/15">
+              <img
+                src={logoUrl}
+                alt=""
+                className="h-9 w-9 object-contain"
+              />
+            </span>
             <div className="min-w-0">
-              <p className="truncate text-sm font-bold leading-tight text-navy-deep">
+              <p className="truncate text-sm font-bold leading-tight text-white">
                 {brand.shortName}
               </p>
-              <p className="truncate text-[10px] font-medium uppercase tracking-wide text-slate">
+              <p className="truncate text-[10px] font-medium uppercase tracking-wide text-white/65">
                 Home Builder & Remodeling
               </p>
             </div>
@@ -50,7 +52,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 className={`text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors ${
                   pathname === link.to
                     ? "text-accent"
-                    : "text-navy-deep/80 hover:text-navy-deep"
+                    : "text-white/85 hover:text-white"
                 }`}
               >
                 {link.label}
@@ -61,14 +63,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="hidden items-center gap-5 md:flex">
             <a
               href={brand.phoneHref}
-              className="flex items-center gap-2 text-sm font-semibold text-navy-deep hover:text-navy"
+              className="flex items-center gap-2 text-sm font-semibold text-white/90 hover:text-white"
             >
               <Phone className="h-4 w-4 text-accent" />
               {brand.phone}
             </a>
             <Button
               to="/contact"
-              className="!px-5 !py-2.5 !text-[11px] !font-bold !uppercase !tracking-wider bg-navy hover:!bg-navy-deep"
+              className="!px-5 !py-2.5 !text-[11px] !font-bold !uppercase !tracking-wider !text-navy-deep bg-accent hover:!bg-accent-hover"
             >
               Request a Quote
             </Button>
@@ -76,7 +78,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
           <button
             type="button"
-            className="flex min-h-11 min-w-11 items-center justify-center rounded border border-stone-dark bg-stone text-navy-deep lg:hidden"
+            className="flex min-h-11 min-w-11 items-center justify-center rounded border border-white/25 bg-white/10 text-white lg:hidden"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             onClick={() => setMenuOpen((o) => !o)}
           >
@@ -85,13 +87,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </div>
 
         {menuOpen && (
-          <nav className="border-t border-stone-dark bg-white px-6 py-8 lg:hidden">
+          <nav className="border-t border-white/10 bg-navy-deep px-6 py-8 lg:hidden">
             <ul className="space-y-2">
               {navLinks.map((link) => (
                 <li key={link.to}>
                   <Link
                     href={link.to}
-                    className="flex min-h-11 items-center font-serif text-3xl text-navy-deep hover:text-accent"
+                    className="flex min-h-11 items-center font-serif text-3xl text-white hover:text-accent"
                   >
                     {link.label}
                   </Link>
@@ -100,14 +102,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </ul>
             <a
               href={brand.phoneHref}
-              className="mt-6 flex min-h-11 items-center gap-2 text-lg font-semibold text-navy-deep"
+              className="mt-6 flex min-h-11 items-center gap-2 text-lg font-semibold text-white"
             >
-              <Phone className="h-5 w-5" />
+              <Phone className="h-5 w-5 text-accent" />
               {brand.phone}
             </a>
             <Button
               to="/contact"
-              className="mt-4 w-full !py-3 !text-xs !font-bold !uppercase !tracking-widest bg-navy hover:!bg-navy-deep"
+              className="mt-4 w-full !py-3 !text-xs !font-bold !uppercase !tracking-widest !text-navy-deep bg-accent hover:!bg-accent-hover"
             >
               Request a Quote
             </Button>
