@@ -30,7 +30,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-white/10 ring-1 ring-white/15">
               <img
                 src={logoUrl}
-                alt=""
+                alt={`${brand.name} logo`}
                 className="h-9 w-9 object-contain"
               />
             </span>

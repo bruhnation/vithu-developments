@@ -16,14 +16,16 @@ import {
  * Profile should be configured. `areaServed` lists the cities we serve.
  */
 export function localBusinessSchema(): Record<string, unknown> {
+  // JSON-LD requires absolute URLs; logoUrl is a site-relative path.
+  const absoluteLogo = new URL(logoUrl, siteUrl).toString();
   return {
     "@context": "https://schema.org",
     "@type": "GeneralContractor",
     "@id": `${siteUrl}/#business`,
     name: brand.name,
     url: siteUrl,
-    logo: logoUrl,
-    image: logoUrl,
+    logo: absoluteLogo,
+    image: absoluteLogo,
     description: brand.tagline,
     telephone: brand.phone,
     email: brand.email,

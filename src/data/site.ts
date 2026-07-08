@@ -8,8 +8,9 @@ export const brand = {
   phoneHref: "tel:+16047673036",
   email: "info@vithudevelopmentsltd.com",
   address: "Vancouver, BC V6L 2T6",
-  mapsUrl:
-    "https://www.google.com/maps?q=Vancouver,+BC+V6L+2T6",
+  // Points to the real Google Business Profile so the "View on Google Maps"
+  // link lands on the listing (and its reviews), not a generic city search.
+  mapsUrl: "https://www.google.com/maps?cid=16952176656884657447",
 };
 
 /** Canonical production URL, no trailing slash. Used for metadataBase,
@@ -72,8 +73,9 @@ export const aboutImage =
 export const sectionBackdrop =
   "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1800&q=85";
 
-export const logoUrl =
-  "https://vithudevelopmentsltd.com/wp-content/themes/hmb3/images/logo.png";
+/** Self-hosted logo (in /public). Kept local so it never depends on the old
+ *  WordPress site staying online. */
+export const logoUrl = "/logo.png";
 
 export const services = [
   {

@@ -8,6 +8,7 @@ export function Button({
   type = "button",
   variant = "primary",
   className = "",
+  disabled = false,
 }: {
   children: ReactNode;
   to?: string;
@@ -15,9 +16,10 @@ export function Button({
   type?: "button" | "submit";
   variant?: "primary" | "outline" | "ghost";
   className?: string;
+  disabled?: boolean;
 }) {
   const base =
-    "inline-flex items-center justify-center px-6 py-3 text-sm font-semibold tracking-wide transition-colors";
+    "inline-flex items-center justify-center px-6 py-3 text-sm font-semibold tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-60";
   const variants = {
     primary: "bg-navy text-white hover:bg-navy-deep",
     outline:
@@ -41,7 +43,12 @@ export function Button({
     );
   }
   return (
-    <button type={type} className={classes} suppressHydrationWarning>
+    <button
+      type={type}
+      className={classes}
+      disabled={disabled}
+      suppressHydrationWarning
+    >
       {children}
     </button>
   );

@@ -5,12 +5,54 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { brand } from "@/data/site";
 import { Button, PageHero } from "@/components/ui";
 
-export function Contact() {
-  const [submitted, setSubmitted] = useState(false);
+/** Web3Forms access key — set NEXT_PUBLIC_WEB3FORMS_KEY to enable seamless
+ *  background email delivery. Without it, the form falls back to opening the
+ *  visitor's email client so leads are never silently lost. */
+const CONTACT_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+type SubmitStatus = "idle" | "submitting" | "success" | "error";
+
+export function Contact() {
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
+    const data = new FormData(e.currentTarget);
+    const name = `${data.get("firstName") ?? ""} ${data.get("lastName") ?? ""}`.trim();
+
+    // No form backend configured: fall back to the visitor's email client.
+    if (!CONTACT_ACCESS_KEY) {
+      const body = [
+        `Name: ${name}`,
+        `Phone: ${data.get("phone") ?? ""}`,
+        `Email: ${data.get("email") ?? ""}`,
+        `Service: ${data.get("service") ?? ""}`,
+        "",
+        `${data.get("message") ?? ""}`,
+      ].join("\n");
+      window.location.href = `mailto:${brand.email}?subject=${encodeURIComponent(
+        `Quote request from ${name || "website"}`,
+      )}&body=${encodeURIComponent(body)}`;
+      setStatus("success");
+      return;
+    }
+
+    setStatus("submitting");
+    data.append("access_key", CONTACT_ACCESS_KEY);
+    data.append("subject", `New quote request from ${name || "website"}`);
+    data.append("from_name", "Vithu Developments website");
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: data,
+      });
+      const result = await res.json();
+      setStatus(result.success ? "success" : "error");
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
@@ -79,7 +121,7 @@ export function Contact() {
           </div>
 
           <div className="border border-stone-dark bg-white p-8 shadow-sm">
-            {submitted ? (
+            {status === "success" ? (
               <div className="py-12 text-center">
                 <p className="font-serif text-2xl text-navy-deep">Thank you!</p>
                 <p className="mt-3 text-slate">
@@ -95,6 +137,15 @@ export function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Honeypot: hidden from users, catches spam bots. */}
+                <input
+                  type="checkbox"
+                  name="botcheck"
+                  className="hidden"
+                  style={{ display: "none" }}
+                  tabIndex={-1}
+                  aria-hidden="true"
+                />
                 <div className="grid gap-5 sm:grid-cols-2">
                   <label className="block">
                     <span className="text-xs font-semibold uppercase tracking-wider text-slate">
@@ -165,9 +216,29 @@ export function Contact() {
                     className="mt-2 w-full resize-y border border-stone-dark bg-stone px-4 py-3 outline-none focus:border-navy"
                   />
                 </label>
-                <Button type="submit" className="w-full sm:w-auto">
-                  Request a Quote
+                <Button
+                  type="submit"
+                  disabled={status === "submitting"}
+                  className="w-full sm:w-auto"
+                >
+                  {status === "submitting" ? "Sending…" : "Request a Quote"}
                 </Button>
+                {status === "error" && (
+                  <p className="text-sm text-red-600">
+                    Something went wrong sending your message. Please call us at{" "}
+                    <a href={brand.phoneHref} className="font-semibold underline">
+                      {brand.phone}
+                    </a>{" "}
+                    or email{" "}
+                    <a
+                      href={`mailto:${brand.email}`}
+                      className="font-semibold underline"
+                    >
+                      {brand.email}
+                    </a>
+                    .
+                  </p>
+                )}
               </form>
             )}
           </div>
