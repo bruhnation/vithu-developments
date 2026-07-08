@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Contact } from "@/views/Contact";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact a Vancouver Home Builder — Free Consultation",
   description:
-    "Get your free consultation — tell us about your project and we'll follow up to discuss scope, timeline, and next steps.",
+    "Get a free consultation with Vithu Developments LTD — tell us about your home building, remodeling, or kitchen renovation project in Vancouver, Burnaby, or Richmond.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {

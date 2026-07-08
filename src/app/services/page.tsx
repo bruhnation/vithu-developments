@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Services } from "@/views/Services";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Home Building, Remodeling & Kitchen Renovation in Vancouver",
   description:
-    "Custom homes, remodeling, kitchens, and design-build — serving Vancouver, Burnaby, and Richmond.",
+    "Custom home building, home remodeling, kitchen renovation, and design-build services for Vancouver, Burnaby, and Richmond homeowners.",
+  alternates: { canonical: "/services" },
 };
 
 export default function ServicesPage() {

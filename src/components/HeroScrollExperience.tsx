@@ -11,7 +11,7 @@ import {
   ClipboardCheck,
   Hammer,
 } from "lucide-react";
-import { aboutImage, brand, heroMedia, homeIntro } from "@/data/site";
+import { aboutImage, heroMedia, homeIntro } from "@/data/site";
 import { Button } from "@/components/ui";
 import { useParallax } from "@/components/scroll";
 
@@ -218,14 +218,15 @@ export function HeroScrollExperience() {
                 Vancouver · Burnaby · Richmond
               </p>
               <h1 className="font-sans text-[2rem] font-black uppercase leading-[1.06] tracking-[-0.04em] text-white max-[380px]:text-[1.75rem] sm:text-5xl md:text-[3.25rem] lg:text-6xl lg:leading-[1.02]">
-                Homes built with care, clarity, and craft.
+                Vancouver Home Builder, Remodeling &amp; Kitchen Renovation
               </h1>
             </div>
 
             <div className="space-y-6 border-t border-white/15 pt-8 sm:space-y-9 lg:space-y-10 lg:pt-12">
               <p className="max-w-xl text-base leading-[1.75] text-white/85 sm:text-lg">
-                {brand.tagline} From early planning to final walkthrough, we
-                keep the process clear and the work well managed.
+                Homes built with care, clarity, and craft. From early planning
+                to final walkthrough, we keep the process clear and the work
+                well managed.
               </p>
 
               <div className="flex flex-wrap gap-3 sm:gap-4">

@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Gallery } from "@/views/Gallery";
 
 export const metadata: Metadata = {
-  title: "Gallery",
+  title: "Project Gallery — Vancouver Home Builds & Renovations",
   description:
-    "A preview of our work in home building and remodeling across the Lower Mainland.",
+    "A preview of our custom home building, remodeling, and kitchen renovation work across Vancouver, Burnaby, Richmond, and the Lower Mainland.",
+  alternates: { canonical: "/gallery" },
 };
 
 export default function GalleryPage() {

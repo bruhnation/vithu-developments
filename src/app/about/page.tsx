@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { About } from "@/views/About";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About Our Vancouver Home Building & Renovation Team",
   description:
-    "Learn about Vithu Developments LTD — a Vancouver home builder focused on quality, communication, and move-in ready results.",
+    "Vithu Developments LTD is a Vancouver-based home builder and remodeling contractor serving Vancouver, Burnaby, and Richmond — focused on clear planning and move-in ready results.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {

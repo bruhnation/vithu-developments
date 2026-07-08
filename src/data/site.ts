@@ -12,6 +12,25 @@ export const brand = {
     "https://www.google.com/maps?q=Vancouver,+BC+V6L+2T6",
 };
 
+/** Canonical production URL, no trailing slash. Used for metadataBase,
+ *  sitemap, robots, canonical tags, and JSON-LD. */
+export const siteUrl = "https://vithudevelopmentsltd.com";
+
+/** Cities we serve — used for LocalBusiness areaServed and on-page copy. */
+export const areaServedCities = ["Vancouver", "Burnaby", "Richmond"];
+
+/** External profiles that reference this business (Google Business Profile,
+ *  social, directories). Populate as they become available — these feed the
+ *  JSON-LD `sameAs` array so Google connects the site to those listings. */
+export const socialLinks: string[] = [
+  // Google Business Profile (canonical CID link)
+  "https://www.google.com/maps?cid=16952176656884657447",
+];
+
+/** Google Search Console verification token. Fill in once the property is
+ *  verified in Search Console, then it renders as a <meta> tag. */
+export const googleSiteVerification = "";
+
 export const navLinks = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },

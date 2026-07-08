@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { DM_Sans, Instrument_Serif } from "next/font/google";
 import { Layout } from "@/components/Layout";
-import { brand, logoUrl } from "@/data/site";
+import { JsonLd } from "@/components/JsonLd";
+import { localBusinessSchema } from "@/lib/seo";
+import { brand, googleSiteVerification, logoUrl, siteUrl } from "@/data/site";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -18,14 +20,34 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: `${brand.name} | Vancouver Home Builder`,
+    default: `${brand.name} | Vancouver Home Builder & Renovation Contractor`,
     template: `%s | ${brand.name}`,
   },
   description: brand.tagline,
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: logoUrl,
   },
+  openGraph: {
+    type: "website",
+    siteName: brand.name,
+    locale: "en_CA",
+    url: siteUrl,
+    title: `${brand.name} | Vancouver Home Builder & Renovation Contractor`,
+    description: brand.tagline,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${brand.name} | Vancouver Home Builder & Renovation Contractor`,
+    description: brand.tagline,
+  },
+  ...(googleSiteVerification
+    ? { verification: { google: googleSiteVerification } }
+    : {}),
 };
 
 export const viewport = {
@@ -45,6 +67,7 @@ export default function RootLayout({
       className={`${dmSans.variable} ${instrumentSerif.variable}`}
     >
       <body className="font-sans">
+        <JsonLd data={localBusinessSchema()} />
         <Layout>{children}</Layout>
       </body>
     </html>
